@@ -7,7 +7,7 @@ This is a Markov-chain based completion language server for `po` files.
 
 ## Installation
 
-Just run `python3 -m pip install .`.
+`python3 -m pip install po-language-server`
 
 
 ## Emacs configuration
