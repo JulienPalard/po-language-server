@@ -1,6 +1,8 @@
 # po-language-server
 
-This is a Markov-chain based completion language server for `po` files.
+This is a Markov-chain based completion [language
+server](https://github.com/Microsoft/language-server-protocol/) for
+gettext `po` files.
 
 ![](https://mdk.fr/po-language-server.gif)
 
@@ -8,6 +10,10 @@ This is a Markov-chain based completion language server for `po` files.
 ## Installation
 
 `python3 -m pip install po-language-server`
+
+It should be compatible with vim, emacs, vscode, and other text
+editors acting as language server clients. I only tried it using emacs
+though.
 
 
 ## Emacs configuration
