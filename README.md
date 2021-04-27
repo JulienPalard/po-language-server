@@ -1,11 +1,8 @@
 # po-language-server
 
-This is a work-in-progress Markov-chain based completion language server for `po` files.
+This is a Markov-chain based completion language server for `po` files.
 
-## Issues
-
-At the moment it loads properly for `po-mode`, but it does *not* load
-on Text buffer opened by `po-mode` to edit `msgid`s.
+![](https://mdk.fr/po-language-server.gif)
 
 
 ## Installation
@@ -15,9 +12,12 @@ Just run `python3 -m pip install .`.
 
 ## Emacs configuration
 
-I did not (yet?) packaged it, but it's not that hard to configure:
+I did not packaged it yet (feel free to help), but it's not that hard
+to configure:
 
 ```
+(require 'lsp-mode)
+
 (add-to-list 'lsp-language-id-configuration '(po-mode . "gettext"))
 
 (lsp-register-client
@@ -28,7 +28,19 @@ I did not (yet?) packaged it, but it's not that hard to configure:
   :server-id 'po
 ))
 (add-hook 'po-mode-hook #'lsp)
-(add-hook 'text-mode-hook #'lsp)
+
+;; lsp-mode can only work on named buffers
+(defun po-mode-name-buffer ()
+  (setq-local buffer-file-name "msgstr.po")
+  (lsp))
+
+(defun po-mode-unname-buffer ()
+  (setq-local buffer-file-name nil))
+
+(add-hook 'po-mode-hook
+ (lambda ()
+   (advice-add 'po-edit-msgstr :after 'po-mode-name-buffer)
+   (advice-add 'po-subedit-exit :before 'po-mode-unname-buffer)))
 
 (add-to-list 'lsp-enabled-clients 'po)
 ```
