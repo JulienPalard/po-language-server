@@ -28,7 +28,7 @@ to configure:
 
 (lsp-register-client
  (make-lsp-client
-  :new-connection (lsp-stdio-connection "po-langage-server")
+  :new-connection (lsp-stdio-connection "po-language-server")
   :activation-fn (lsp-activate-on "gettext" "plaintext")
   :priority -1
   :server-id 'po
